@@ -13,48 +13,59 @@ package card;
  */
 import java.util.Scanner;
 
-public class CardTrick {
-
-    public static void main(String[] args) {
-        Card[] magicHand = new Card[7];
-
-        for(int i = 0; i < magicHand.length; i++) {
+public class CardTrick {   
+    for(int i=0; i<magicHand.length; i++)
+        {
             Card c = new Card();
             c.setValue(generateRandomNumber());
             c.setSuit(Card.SUITS[generateRandomNumber(0, 3)]);
             magicHand[i] = c;
         }
-
-        Scanner scanner = new Scanner(System.in);
+        
+    //  luckyCard is added 
+        Card luckyCard = new Card();
+        luckyCard.setValue(7);
+        luckyCard.setSuit(Card.SUITS[1]);
+    
+    Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the value of your card: ");
         int value = scanner.nextInt();
-        System.out.print("Enter the suit of your card (0-3 where 0 = Hearts, 1 = Diamonds, 2 = Clubs, 3 = Spades): ");
+        System.out.print("Enter the suit of your card (0-3): ");
         int suit = scanner.nextInt();
-
-        Card userCard = new Card();
+    
+    Card userCard = new Card();
         userCard.setValue(value);
         userCard.setSuit(Card.SUITS[suit]);
-
-        boolean found = false;
+    
+    boolean found = false;
         for(Card card : magicHand) {
             if(card.getValue() == userCard.getValue() && card.getSuit().equals(userCard.getSuit())) {
                 found = true;
                 break;
             }
         }
+    
 
-        if(found) {
+    if(found) {
             System.out.println("Hurray! Your card is in the magic hand.");
-        } else {
-            System.out.println("Alas! your card is not in the magic hand.");
+        } 
+    else {
+            System.out.println("Alas! Your card is not in the magic hand.");
+        }
+   if(luckyCard.getValue() == userCard.getValue() && luckyCard.getSuit().equals(userCard.getSuit())) {
+            System.out.println("You have also found the lucky card!");
+        }
+   else {
+            System.out.println("You have NOT found the lucky card!");
         }
     }
-
-    private static int generateRandomNumber() {
+    
+private static int generateRandomNumber() {
         return (int) (Math.random() * 13 + 1);
     }
-
-    private static int generateRandomNumber(int min, int max) {
+       
+private static int generateRandomNumber(int min, int max) {
         return (int) (Math.random() * (max - min + 1) + min);
     }
+    
 }
